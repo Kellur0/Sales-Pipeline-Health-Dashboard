@@ -50,9 +50,7 @@ def load_data():
 
 df = load_data()
 
-# -----------------------------
 # Sidebar Filters
-# -----------------------------
 
 st.sidebar.header("Filters")
 
@@ -91,9 +89,7 @@ selected_product = st.sidebar.multiselect(
 
 df = df[df["Product"].isin(selected_product)]
 
-# -----------------------------
 # KPIs
-# -----------------------------
 
 pipeline_value = df["Deal_Value"].sum()
 average_deal = df["Deal_Value"].mean()
@@ -113,9 +109,7 @@ c4.metric("Win Rate",f"{win_rate:.1%}")
 
 st.divider()
 
-# -----------------------------
 # Pipeline Value by Stage
-# -----------------------------
 
 stage = df.groupby("Stage",as_index=False)["Deal_Value"].sum()
 
@@ -129,9 +123,7 @@ fig = px.bar(
 
 st.plotly_chart(fig,width="stretch")
 
-# -----------------------------
 # Average Deal Size by Stage
-# -----------------------------
 
 avg = df.groupby("Stage",as_index=False)["Deal_Value"].mean()
 
@@ -145,9 +137,7 @@ fig = px.bar(
 
 st.plotly_chart(fig,width="stretch")
 
-# -----------------------------
 # Revenue Forecast
-# -----------------------------
 
 forecast_df = df.groupby("Stage",as_index=False)["Forecast"].sum()
 
@@ -161,9 +151,7 @@ fig = px.bar(
 
 st.plotly_chart(fig,width="stretch")
 
-# -----------------------------
 # Sales Rep Performance
-# -----------------------------
 
 rep = (
     df.groupby("Sales_Rep",as_index=False)["Deal_Value"]
@@ -181,9 +169,7 @@ fig = px.bar(
 
 st.plotly_chart(fig,width="stretch")
 
-# -----------------------------
 # Conversion Rates
-# -----------------------------
 
 conversion = df.groupby("Stage").size().reset_index(name="Deals")
 conversion["Conversion Rate (%)"] = (
@@ -195,9 +181,7 @@ st.subheader("Conversion Rates")
 
 st.dataframe(conversion,width="stretch")
 
-# -----------------------------
 # Raw Data
-# -----------------------------
 
 with st.expander("View Dataset"):
     st.dataframe(df,width="stretch")
